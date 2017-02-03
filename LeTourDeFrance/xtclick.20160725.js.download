@@ -1,0 +1,293 @@
+function xtTag(tag) {
+	if (tag) {
+		var cleanTag = $.trim(tag.replace(/ /g, "-").replace(/\'/g, "").replace(/\"/g, "").replace(/-selected/g, "")).toLowerCase();
+		if (cleanTag.length > 25) cleanTag.substr(25) + '...';
+	} else {
+		var cleanTag = "undefined";
+	}
+	var pageId = $("body").attr("id");
+	if (pageId == "hors-course" && $("body#hors-course .animations-100e").size()) pageId = "animations-100e";
+	else if (pageId == "hors-course" && $("body#hors-course .grand-depart").size()) pageId = "grand-depart";
+	return pageId +'::'+ cleanTag;
+}
+
+$(function() {
+	if (!xtshow) {
+		var trackClickEvent = "mousedown";
+		var trackClick = function (tag) {
+			xt_click($(this), 'C', getXtLang(), xtTag(tag), 'N');
+		}
+	} else {
+		var trackClickEvent = "mouseover";
+		var el = null;
+		var trackClick = function (tag, e) {
+			el = e.target;
+			var tag = xtTag(tag);
+			$(el).attr("title", tag);
+			$(el).attr("tag", tag);
+		}
+		$(window).on("keydown", function (k) {
+			if (k.keyCode == 17) {
+				var tag = $(el).attr("tag");
+				console.log(tag);
+			}
+		});
+	}
+
+	/*! #header */
+	$("#html5-header .logo a.self").on(trackClickEvent, function(e) { trackClick('header::logo::visuel', e); });
+	$("#html5-header .logo a.parent").on(trackClickEvent, function(e) { trackClick('header::logo::retour::bouton', e); });
+	$("#html5-header .logo a.promo-partner").on(trackClickEvent, function(e) { trackClick('header::autopromo::tracker::bouton', e); });
+	$("#html5-header .logo .tissot a").on(trackClickEvent, function(e) { trackClick('header::autopromo::tissot::bouton', e); });
+	//$("#html5-header .langs").on("mouseenter", function(e) { trackClick('header::langs::ouverture::rollover', e); });
+	$("#html5-header .langs ul li a").on(trackClickEvent, function(e) { trackClick('header::langs::bouton', e); });
+	$("#html5-header .social a").on(trackClickEvent, function(e) { trackClick('header::abonnement::'+ $(this).attr("class") +'::bouton', e); });
+	$("#html5-header .media .item[type=photo] img").on(trackClickEvent, function(e) { trackClick('header::push::visuel::'+ $("#html5-header .media .item").index($(this).parents(".item")), e); });
+	$("#html5-header .media .item[type=video] a.play").live(trackClickEvent, function(e) { trackClick('header::push::play::'+ $("#html5-header .media .item").index($(this).parents(".item")), e); });
+	$("#html5-header .media .item[type=video] a.back").live(trackClickEvent, function(e) { trackClick('header::push::stop::'+ $("#html5-header .media .item").index($(this).parents(".item")), e); });
+	$("#html5-header .media .item[type=iframe] a.play").live(trackClickEvent, function(e) { trackClick('header::live::push::play::'+ $("#html5-header .media .item").index($(this).parents(".item")), e); });
+	$("#html5-header .media .item[type=iframe] a.back").live(trackClickEvent, function(e) { trackClick('header::live::push::stop::'+ $("#html5-header .media .item").index($(this).parents(".item")), e); });
+	$("#html5-header .focus .block .news p a, #html5-header .focus .block .news .big a").on(trackClickEvent, function(e) { trackClick('header::push::lien::'+ $("#html5-header .focus .block .news .item").index($(this).parents(".item")), e); });
+	$("#html5-header .focus .block .news ul.nav li a").on(trackClickEvent, function(e) { trackClick('header::push::pastille', e); });
+	$("#html5-header .focus .block .news .more").on(trackClickEvent, function(e) { trackClick('header::push::plusdactus::bouton', e); });
+	//$("#html5-header .focus .block .news .button").on(trackClickEvent, function(e) { trackClick('header::push::plusdactus::bouton2', e); });
+	$("#html5-header .focus .block .buttons .live").on(trackClickEvent, function(e) { trackClick('header::direct::bouton', e); });
+	$("#html5-header .focus .block .buttons .etape").on(trackClickEvent, function(e) { trackClick('header::letape::bouton', e); });
+	$("#html5-header .flashnews ul li a").live(trackClickEvent, function(e) { trackClick('header::flashnews::lien::'+ $(this).parent("li").index(), e); });
+	/*! #nav */
+	$("#html5-header #html5-nav ul li.milesim > a").on(trackClickEvent, function(e) { trackClick('navigation-principale::la-course::bouton', e); });
+	$("#html5-header #html5-nav ul li.milesim .content li a").on(trackClickEvent, function(e) { trackClick('navigation-principale::la-course::'+ $(this).attr("class") +'::lien', e); });
+	$("#html5-header #html5-nav ul li.stages > a").on(trackClickEvent, function(e) { trackClick('navigation-principale::etapes::bouton', e); });
+	$("#html5-header #html5-nav ul li.stages .content li a").on(trackClickEvent, function(e) { trackClick('navigation-principale::etapes::lien', e); });
+	$("#html5-header #html5-nav ul li.classifications > a").on(trackClickEvent, function(e) { trackClick('navigation-principale::classements::bouton', e); });
+	$("#html5-header #html5-nav ul li.teams > a").on(trackClickEvent, function(e) { trackClick('navigation-principale::equipes::bouton', e); });
+	$("#html5-header #html5-nav ul li.teams .content li a").on(trackClickEvent, function(e) { trackClick('navigation-principale::equipes::maillot::'+ $(this).parent("li").index(), e); });
+	$("#html5-header #html5-nav ul li.teams .content .bottom-buttons a:eq(0)").on(trackClickEvent, function(e) { trackClick('navigation-principale::equipes::liste-des-equipes::bouton', e); });
+	$("#html5-header #html5-nav ul li.teams .content .bottom-buttons a:eq(1)").on(trackClickEvent, function(e) { trackClick('navigation-principale::equipes::liste-des-coureurs::bouton', e); });
+	$("#html5-header #html5-nav ul li.teams .content .bottom-buttons a:eq(2)").on(trackClickEvent, function(e) { trackClick('navigation-principale::equipes::abandons::bouton', e); });
+	$("#html5-header #html5-nav ul li.gallery > a").on(trackClickEvent, function(e) { trackClick('navigation-principale::gallerie::bouton', e); });
+	$("#html5-header #html5-nav ul li.gallery .content li a").on(trackClickEvent, function(e) { trackClick('navigation-principale::gallerie::'+ $(this).attr("class") +'::lien', e); });
+	$("#html5-header #html5-nav ul li.history > a").on(trackClickEvent, function(e) { trackClick('navigation-principale::histoire::bouton', e); });
+	$("#html5-header #html5-nav ul li.history .content li a").on(trackClickEvent, function(e) { trackClick('navigation-principale::histoire::'+ $(this).attr("class") +'::lien', e); });
+	$("#html5-header #html5-nav ul li.shop > a").on(trackClickEvent, function(e) { trackClick('navigation-principale::boutique::bouton', e); });
+	$("#html5-header #html5-nav ul li.pro > a").on(trackClickEvent, function(e) { trackClick('navigation-principale::espace-pro::bouton', e); });
+	$("#html5-header #html5-nav ul li.tdf-100 > a").on(trackClickEvent, function(e) { trackClick('navigation-principale::la100e::bouton', e); });
+	$("#html5-header #html5-nav ul li.tdf-100 .content li a").on(trackClickEvent, function(e) { trackClick('navigation-principale::la100e::lien', e); });
+	$("#html5-header #html5-nav form.search").on("submit", function(e) { trackClick('navigation-principale::recherche::submit', e); });
+	$("#html5-header #html5-nav form.search input[type=text]").on(trackClickEvent, function(e) { trackClick('navigation-principale::recherche::focus', e); });
+	$("#html5-header .stage-nav a.prev, #html5-header .stage-nav a.next").on(trackClickEvent, function(e) { trackClick('navigation-etapes::fleches::bouton', e); });
+	$("#html5-header .stage-nav div.current a.selector").on(trackClickEvent, function(e) { trackClick('navigation-etapes::ouverture::bouton', e); });
+	$("#html5-header .stage-nav div.current ul.options li a").on(trackClickEvent, function(e) { trackClick('navigation-etapes::lien::'+ $(this).parent("li").index(), e); });
+	/*! #col */
+	$("#html5-header .promo .autopromo a").on(trackClickEvent, function(e) { trackClick('col::autopromo::'+ $(this).attr("class").replace(" showed","") +'::visuel', e); });
+	$("#content #col .coqsportif a").on(trackClickEvent, function(e) { trackClick('col::autopromo::coqsportif::visuel', e); });
+	$("#content #col .socialcorner a").on(trackClickEvent, function(e) { trackClick('col::autopromo::socialcorner::visuel', e); });
+	$("#content #col .pmutwit a").on(trackClickEvent, function(e) { trackClick('col::autopromo::pmu::visuel', e); });
+	$("#content #col .autopromo a").on(trackClickEvent, function(e) { trackClick('col::autopromo::'+ $(this).attr("class").replace(" showed","") +'::square', e); });
+	$("#content #col .fanparks a").on(trackClickEvent, function(e) { trackClick('col::autopromo::fanpark::visuel', e); });
+	$("#content #col .fanparks a.button").on(trackClickEvent, function(e) { trackClick('col::autopromo::fanpark::bouton', e); });
+	$("#content #col .dimension-data a").on(trackClickEvent, function(e) { trackClick('col::autopromo::tracker::visuel', e); });
+	$("#content #col .dimension-data a.button").on(trackClickEvent, function(e) { trackClick('col::autopromo::tracker::bouton', e); });
+	$("#content #col .distinctif ul li a.name").on(trackClickEvent, function(e) { trackClick('col::porteurs-de-maillots::coureur::lien', e); });
+	$("#content #col .distinctif ul li a.team").on(trackClickEvent, function(e) { trackClick('col::porteurs-de-maillots::equipe::lien', e); });
+	$("#content #col .accordion .classements:not(.active,.live) h4").live(trackClickEvent, function(e) { trackClick('col::classements::definitif::accordeon', e); });
+	$("#content #col .classements:not(.live) ul.view li a").live(trackClickEvent, function(e) { trackClick('col::classements::definitif::'+ $("#content #col .classements:not(.live)").attr("code") +'::onglet', e); });
+	$("#content #col .classements:not(.live) ul.type li a").live(trackClickEvent, function(e) { trackClick('col::classements::definitif::'+ $("#content #col .classements:not(.live)").attr("code") +'::maillot', e); });
+	$("#content #col .accordion .classements.live:not(.active) h4").live(trackClickEvent, function(e) { trackClick('col::classements::encours::accordeon', e); });
+	$("#content #col .classements.live ul.view li a").live(trackClickEvent, function(e) { trackClick('col::classements::encours::'+ $("#content #col .classements.live").attr("code") +'::onglet', e); });
+	$("#content #col .classements.live ul.type li a").live(trackClickEvent, function(e) { trackClick('col::classements::encours::'+ $("#content #col .classements.live").attr("code") +'::maillot', e); });
+	$("#content #col .classements.live-provisoire ul.view li a").live(trackClickEvent, function(e) { trackClick('col::classements::provisoire::'+ $("#content #col .classements.live-provisoire").attr("code") +'::onglet', e); });
+	$("#content #col .classements.live-provisoire ul.type li a").live(trackClickEvent, function(e) { trackClick('col::classements::provisoire::'+ $("#content #col .classements.live-provisoire").attr("code") +'::maillot', e); });
+	$("#content #col .classements .list table td.name a").live(trackClickEvent, function(e) { trackClick('col::classements::coureur::lien', e); });
+	$("#content #col .classements .list table td.team a").live(trackClickEvent, function(e) { trackClick('col::classements::equipe::lien', e); });
+	$("#content #col .classements .buttons a.complet").live(trackClickEvent, function(e) { trackClick('col::classements::classements-complet::bouton', e); });
+	$("#content #col .classements .buttons a.abandons").live(trackClickEvent, function(e) { trackClick('col::classements::abandons::bouton', e); });
+	$("#content #col .classements .buttons a.partants").live(trackClickEvent, function(e) { trackClick('col::classements::partants::bouton', e); });
+	$("#content #col .classements.live .buttons a").live(trackClickEvent, function(e) { trackClick('col::classements::direct::bouton', e); });
+	$("#content #col .interviews h5 a").on(trackClickEvent, function(e) { trackClick('col::interview::titre', e); });
+	$("#content #col .interviews p a").on(trackClickEvent, function(e) { trackClick('col::interview::lien', e); });
+	$("#content #col .pmu a").on(trackClickEvent, function(e) { trackClick('col::pmu-cotes::lien', e); });
+	$("#content #col .meteo a").on(trackClickEvent, function(e) { trackClick('col::meteo::visuel', e); });
+	$("#content #col .abonnement .buttons a").on(trackClickEvent, function(e) { trackClick('col::abonnement::'+ $(this).attr("class") +'::bouton', e); });
+	$("#content #col .sondage form a.button").on(trackClickEvent, function(e) { trackClick('col::sondage::bouton', e); });
+	$("#content #col .histoire a.button").on(trackClickEvent, function(e) { trackClick('col::histoire::telecharger::bouton', e); });
+	$("#content #col .chrono ul li a").on(trackClickEvent, function(e) { trackClick('col::journal::'+ $(this).parent("li").attr("type") +'::lien', e); });
+	$("#content #col .equipes ul li a").on(trackClickEvent, function(e) { trackClick('col::equipes::maillot::visuel::'+ $(this).parent("li").index(), e); });
+	$("#content #col .equipes a.prev, #content #col .equipes a.next").on(trackClickEvent, function(e) { trackClick('col::equipes::fleches::bouton', e); });
+	$("#content #col .equipes a.button").on(trackClickEvent, function(e) { trackClick('col::equipes::bouton', e); });
+	$("#content #col .enjeuxsportifs .banner h5 a").on(trackClickEvent, function(e) { trackClick('col::enjeuxsportifs::lien', e); });
+	$("#content #col .enjeuxsportifs .banner h5.ITG a").on(trackClickEvent, function(e) { trackClick('col::enjeuxsportifs::jaune::lien', e); });
+	$("#content #col .enjeuxsportifs .banner h5.IPG a").on(trackClickEvent, function(e) { trackClick('col::enjeuxsportifs::vert::lien', e); });
+	$("#content #col .enjeuxsportifs .banner h5.IMG a").on(trackClickEvent, function(e) { trackClick('col::enjeuxsportifs::pois::lien', e); });
+	$("#content #col .enjeuxsportifs .banner h5.IJG a").on(trackClickEvent, function(e) { trackClick('col::enjeuxsportifs::blanc::lien', e); });
+	$("#content #col .enjeuxsportifs .banner h5.ETG a").on(trackClickEvent, function(e) { trackClick('col::enjeuxsportifs::equipe::lien', e); });
+	$("#content #col .enjeuxsportifs .banner h5.ICG a").on(trackClickEvent, function(e) { trackClick('col::enjeuxsportifs::combatif::lien', e); });
+	$("#content #col .rse ul.tabs li.mecenat a").on(trackClickEvent, function(e) { trackClick('col::rse::mecenat::onglet', e); });
+	$("#content #col .rse ul.tabs li.environnement a").on(trackClickEvent, function(e) { trackClick('col::rse::environnement::onglet', e); });
+	$("#content #col .rse .tab-mecenat p a").on(trackClickEvent, function(e) { trackClick('col::rse::mecenat::lien', e); });
+	$("#content #col .rse .tab-environnement p a").on(trackClickEvent, function(e) { trackClick('col::rse::environnement::lien', e); });
+	$("#content #col .grand-depart ul.tabs li:not(.selected) a").on(trackClickEvent, function(e) { trackClick('col::grand-depart::'+ $(this).parent("li").attr("class") +'::onglet', e); });
+	$("#content #col .grand-depart .visuel a.label").on(trackClickEvent, function(e) { trackClick('col::grand-depart::'+ $(this).parents(".grand-depart").attr("tab") +'::visuel', e); });
+	$("#content #col .grand-depart .bottom-link a").on(trackClickEvent, function(e) { trackClick('col::grand-depart::'+ $(this).parents(".grand-depart").attr("tab") +'::lien', e); });
+	$("#content #col .animations-100e .visuel a").on(trackClickEvent, function(e) { trackClick('col::animations-100e::visuel', e); });
+	$("#content #col .animations-100e a.button").on(trackClickEvent, function(e) { trackClick('col::animations-100e::bouton', e); });
+	$("#content #col .nicefeteletour .visuel a").on(trackClickEvent, function(e) { trackClick('col::nicefeteletour::visuel', e); });
+	$("#content #col .nicefeteletour a.button").on(trackClickEvent, function(e) { trackClick('col::nicefeteletour::bouton', e); });	
+	$("#content #col .operations-jeunes .visuel").on(trackClickEvent, function(e) { trackClick('col::operations-jeunes::visuel', e); });
+	$("#content #col .operations-jeunes .visuel a").on(trackClickEvent, function(e) { trackClick('col::operations-jeunes::visuel', e); });
+	$("#content #col .operations-jeunes a.button").on(trackClickEvent, function(e) { trackClick('col::operations-jeunes::bouton', e); });
+	$("#content #col .femmes .visuel a").on(trackClickEvent, function(e) { trackClick('col::autopromo::women::visuel', e); });
+	$("#content #col .femmes a.button").on(trackClickEvent, function(e) { trackClick('col::autopromo::women::bouton', e); });
+	$("#content #col .tissot iframe").on(trackClickEvent, function(e) { trackClick('col::autopromo::tissot::iframe', e); });
+	$("#content #col .tissot a.button").on(trackClickEvent, function(e) { trackClick('col::autopromo::tissot::bouton', e); });
+	$("#content #col .covers a").on(trackClickEvent, function(e) { trackClick('col::imagine-le-tour::lien', e); });
+	$("#content #col .geodiversity a").on(trackClickEvent, function(e) { trackClick('col::geodiversite::lien', e); });
+
+	/*! #main */
+	$("#content .breadcrumb a").on(trackClickEvent, function(e) { trackClick('main::breadcrumb::lien::'+ $(this).index(), e); });
+	$("#content #main .edito ul.tabs li.avis:not(.selected)").on(trackClickEvent, function(e) { trackClick('main::avis::onglet', e); });
+	$("#content #main .edito ul.tabs li.actus:not(.selected)").on(trackClickEvent, function(e) { trackClick('main::actus::onglet', e); });
+	$("#content #main .edito .content .tab-avis h3 a").on(trackClickEvent, function(e) { trackClick('main::avis::titre', e); });
+	$("#content #main .edito .content .tab-avis p a").on(trackClickEvent, function(e) { trackClick('main::avis::lien', e); });
+	$("#content #main .edito .content .tab-actus:not('.journal') h3 a").on(trackClickEvent, function(e) { trackClick('main::actus::titre', e); });
+	$("#content #main .edito .content .tab-actus:not('.journal') p a").on(trackClickEvent, function(e) { trackClick('main::actus::lien', e); });
+	$("#content #main .edito .content .tab-actus:not('.journal') a img").on(trackClickEvent, function(e) { trackClick('main::actus::visuel', e); });
+	$("#content #main .edito[tab=actus] a.button:eq(0)").on(trackClickEvent, function(e) { trackClick('main::actus::plusdactus::bouton', e); });
+	$("#content #main .edito[tab=actus] a.button:eq(1)").on(trackClickEvent, function(e) { trackClick('main::actus::journal::bouton', e); });
+	$("#content #main .edito .content .tab-actus.journal .head a.button").on(trackClickEvent, function(e) { trackClick('main::journal-de-letape::highlight', e); });
+	$("#content #main .edito .content .tab-actus.journal li:not('.head') a.button").on(trackClickEvent, function(e) { trackClick('main::journal-de-letape::other-news', e); });
+	$("#content #main .edito .content .tab-actus.journal .action-btn a.button").on(trackClickEvent, function(e) { trackClick('main::journal-de-letape::bouton', e); });
+	$("#content #main .edito .content .tab-actus.journal .btn-expanded a").on(trackClickEvent, function(e) { trackClick('main::journal-de-letape::fleches::bouton', e); });
+	$("#content #main .ville .depart a img").on(trackClickEvent, function(e) { trackClick('main::ville::depart::visuel', e); });
+	$("#content #main .ville .depart .bottom-link a").on(trackClickEvent, function(e) { trackClick('main::ville::depart::lien', e); });
+	$("#content #main .ville .arrivee a img").on(trackClickEvent, function(e) { trackClick('main::ville::arrivee::visuel', e); });
+	$("#content #main .ville .arrivee .bottom-link a").on(trackClickEvent, function(e) { trackClick('main::ville::arrivee::lien', e); });
+	$("#content #main .carte .module a").on(trackClickEvent, function(e) { trackClick('main::parcours::visuel', e); });
+	$("#content #main .carte .bottom-link a").on(trackClickEvent, function(e) { trackClick('main::parcours::decouvrirleparcours::lien', e); });
+	$("#content #main .grand-depart ul.tabs li:not(.selected) a").on(trackClickEvent, function(e) { trackClick('main::grand-depart::'+ $(this).parent("li").attr("class") +'::onglet', e); });
+	$("#content #main .grand-depart .content a img").on(trackClickEvent, function(e) { trackClick('main::grand-depart::'+ $(this).parents(".grand-depart").attr("tab") +'::visuel', e); });
+	$("#content #main .grand-depart .content a.button").on(trackClickEvent, function(e) { trackClick('main::grand-depart::'+ $(this).parents(".grand-depart").attr("tab") +'::lien', e); });
+	$("#content #main .diapo.video .focus .media a.prev, #content #main .diapo.video .focus .media a.next").live(trackClickEvent, function(e) { trackClick('main::videos::flechesfocus', e); });
+	$("#content #main .diapo.video .list .nav a:not(.disabled)").live(trackClickEvent, function(e) { trackClick('main::videos::flechesnav', e); });
+	$("#content #main .diapo.video .focus a.play").live(trackClickEvent, function(e) { trackClick('main::videos::play::visuel', e); });
+	$("#content #main .diapo.video .list ul.thumbs li:not(.current)").live(trackClickEvent, function(e) { trackClick('main::videos::vignette::visuel', e); });
+	$("#content #main .diapo.video .share-buttons a").live(trackClickEvent, function(e) { trackClick('main::videos::share::'+ $(this).attr("class"), e); });
+	$("#content #main .diapo.photo .focus .media a.prev, #content #main .diapo.photo .focus .media a.next").live(trackClickEvent, function(e) { trackClick('main::photos::flechesfocus', e); });
+	$("#content #main .diapo.photo .list .nav a:not(.disabled)").live(trackClickEvent, function(e) { trackClick('main::photos::flechesnav', e); });
+	$("#content #main .diapo.photo .focus a.zoom").live(trackClickEvent, function(e) { trackClick('main::photos::loupe::visuel', e); });
+	$("#content #main .diapo.photo .list ul.thumbs li:not(.current)").live(trackClickEvent, function(e) { trackClick('main::photos::vignette::visuel', e); });
+	$("#content #main .diapo.photo .share-buttons a").live(trackClickEvent, function(e) { trackClick('main::photos::share::'+ $(this).attr("class"), e); });
+	$("#content #main .caravane a").on(trackClickEvent, function(e) { trackClick('main::caravane::lien', e); });
+	$("#content #main .cotesport ul.tabs li:not(.selected) a").on(trackClickEvent, function(e) { trackClick('main::cotesport::'+ $(this).parent("li").attr("class") +'::onglet', e); });
+	$("#content #main .cotetourisme ul.tabs li:not(.selected) a").on(trackClickEvent, function(e) { trackClick('main::cotetourisme::'+ $(this).parent("li").attr("class") +'::onglet', e); });
+	$("#content #main .cotetourisme .photos a").on(trackClickEvent, function(e) { trackClick('main::cotetourisme::'+ $(this).parents(".cotetourisme").attr("tab") +'::flechesgalerie', e); });
+	$("#content #main .cotetourisme .bottom-buttons a").on(trackClickEvent, function(e) { trackClick('main::cotetourisme::'+ $(this).parents(".cotetourisme").attr("tab") +'::ville::bouton::'+ $(this).index(), e); });
+	$("#content #main .cotetourisme .tab-surlaroute .banner a").on(trackClickEvent, function(e) { trackClick('main::cotetourisme::surlaroute::visiter::bouton', e); });
+	$("#content #main .cotetourisme .tab-surlaroute .overlay a").on(trackClickEvent, function(e) { trackClick('main::cotetourisme::surlaroute::geologie::bouton', e); });
+	$("#content #main .covers a").on(trackClickEvent, function(e) { trackClick('main::imagine-le-tour::lien', e); });
+	$("#content #main .geodiversity a").on(trackClickEvent, function(e) { trackClick('main::geodiversite::lien', e); });
+	$("#content .partners li").on(trackClickEvent, function(e) { trackClick('main::partenaires::'+ $(this).children("a,span").attr("class") +'::visuel', e); });
+	
+	/*! #nav-etape */
+	$('#page-etape #page-nav a').live(trackClickEvent, function(e) { trackClick('navigation-etape::bouton::'+$(this).parent().index(), e); });
+
+	/*! #dock */
+	$("#html5-footer #dock ul.toolbar li.epreuves > a").on(trackClickEvent, function(e) { trackClick('dock::epreuves::bouton', e); });
+	$("#html5-footer #dock ul.toolbar li.epreuves .content .head a.reduce").on(trackClickEvent, function(e) { trackClick('dock::epreuves::fermer::bouton', e); });
+	$("#html5-footer #dock ul.toolbar li.epreuves .content ul.list li a").on(trackClickEvent, function(e) { trackClick('dock::epreuves::'+ $(this).parent("li").attr("class") +'::visuel', e); });
+	$("#html5-footer #dock ul.toolbar li.letape > a").on(trackClickEvent, function(e) { trackClick('dock::letape::bouton', e); });
+	$("#html5-footer #dock ul.toolbar li.diffuseurs > a").on(trackClickEvent, function(e) { trackClick('dock::diffuseurs::bouton', e); });
+	$("#html5-footer #dock ul.toolbar li.diffuseurs .content .head a.reduce").on(trackClickEvent, function(e) { trackClick('dock::diffuseurs::fermer::bouton', e); });
+	$("#html5-footer #dock ul.toolbar li.diffuseurs .content .head .pages a").on(trackClickEvent, function(e) { trackClick('dock::diffuseurs::pagination::lien', e); });
+	$("#html5-footer #dock ul.toolbar li.diffuseurs .content ul.list li a").on(trackClickEvent, function(e) { trackClick('dock::diffuseurs::'+ $(this).find("strong").text() +'::lien', e); });
+	$("#html5-footer #dock ul.toolbar li.pmu > a").on(trackClickEvent, function(e) { trackClick('dock::pmu::bouton', e); });
+	$("#html5-footer #dock ul.toolbar li.caravane > a").on(trackClickEvent, function(e) { trackClick('dock::caravane::bouton', e); });
+	$("#html5-footer #dock ul.toolbar li.jeu-videos > a").on(trackClickEvent, function(e) { trackClick('dock::jeu-videos::bouton', e); });
+	$("#html5-footer #dock ul.toolbar li.rse > a").on(trackClickEvent, function(e) { trackClick('dock::rse::bouton', e); });
+	$("#html5-footer #dock ul.toolbar li.espace-pro > a").on(trackClickEvent, function(e) { trackClick('dock::espace-pro::bouton', e); });
+	$("#html5-footer #dock ul.toolbar li.hospitalite > a").on(trackClickEvent, function(e) { trackClick('dock::hospitalite::bouton', e); });
+	$("#html5-footer #dock ul.toolbar li.social-corner > a").on(trackClickEvent, function(e) { trackClick('dock::social-corner::bouton', e); });
+	$("#html5-footer #dock ul.toolbar li.fan-parks > a").on(trackClickEvent, function(e) { trackClick('dock::fan-parks::bouton', e); });
+	$("#html5-footer #dock ul.toolbar li.partnaires > a").on(trackClickEvent, function(e) { trackClick('dock::partnaires::bouton', e); });
+	$("#html5-footer #dock ul.toolbar li.feedback > a").on(trackClickEvent, function(e) { trackClick('dock::feedback::bouton', e); });
+	$("#html5-footer #dock ul.toolbar li.live a").on(trackClickEvent, function(e) { trackClick('dock::direct::bouton', e); });
+	$("#html5-footer #dock ul.toolbar li.livevideo a").on(trackClickEvent, function(e) { trackClick('dock::directvideo::bouton', e); });
+	$("#html5-footer #dock ul.toolbar li.actus-epreuves.autre > a.select").live(trackClickEvent, function(e) { trackClick('dock::actus-autres-epreuves::bouton', e); });
+	$("#html5-footer #dock ul.toolbar li.actus-epreuves.autre .content .head a.reduce").live(trackClickEvent, function(e) { trackClick('dock::actus-autres-epreuves::fermer::bouton', e); });
+	$("#html5-footer #dock ul.toolbar li.actus-epreuves.autre .content ul.list li a:eq(0)").live(trackClickEvent, function(e) { trackClick('dock::actus-autres-epreuves::'+ $(this).parent("li").attr("racecode") +'::titre', e); });
+	$("#html5-footer #dock ul.toolbar li.actus-epreuves.autre .content ul.list li a:eq(1)").live(trackClickEvent, function(e) { trackClick('dock::actus-autres-epreuves::'+ $(this).parent("li").attr("racecode") +'::lien', e); });
+	$("#html5-footer #dock ul.toolbar li.actus-epreuves.masse > a.select").live(trackClickEvent, function(e) { trackClick('dock::actus-epreuves-masse::bouton', e); });
+	$("#html5-footer #dock ul.toolbar li.actus-epreuves.masse .content .head a.reduce").live(trackClickEvent, function(e) { trackClick('dock::actus-epreuves-masse::fermer::bouton', e); });
+	$("#html5-footer #dock ul.toolbar li.actus-epreuves.masse .content ul.list li a:eq(0)").live(trackClickEvent, function(e) { trackClick('dock::actus-epreuves-masse::'+ $(this).parent("li").attr("racecode") +'::titre', e); });
+	$("#html5-footer #dock ul.toolbar li.actus-epreuves.masse .content ul.list li a:eq(1)").live(trackClickEvent, function(e) { trackClick('dock::actus-epreuves-masse::'+ $(this).parent("li").attr("racecode") +'::lien', e); });
+	
+	$("#html5-footer #dock ul.toolbar li.actus-epreuves.hors-course a.select").live(trackClickEvent, function(e) { trackClick('dock::actus-epreuves-cyclisme::lien', e); });
+	$("#html5-footer #dock ul.toolbar li.actus-epreuves.hors-course .content .head a.reduce").live(trackClickEvent, function(e) { trackClick('dock::actus-epreuves-cyclisme::fermer::bouton', e); });
+	$("#html5-footer #dock ul.toolbar li.actus-epreuves.hors-course .content .bottom a:eq(0)").live(trackClickEvent, function(e) { trackClick('dock::actus-epreuves-cyclisme::lire-la-suite::bouton', e); });
+	$("#html5-footer #dock ul.toolbar li.actus-epreuves.hors-course .content .bottom a:eq(1)").live(trackClickEvent, function(e) { trackClick('dock::actus-epreuves-cyclisme::plus-actus::bouton', e); });
+
+
+	/*! #footer */
+	$("#html5-footer .menu ul.col li a").on(trackClickEvent, function(e) { trackClick('footer::autres::lien', e); });
+	$("#html5-footer .menu a.aso").on(trackClickEvent, function(e) { trackClick('footer::aso::visuel', e); });
+	$("#html5-footer .menu a.handi").on(trackClickEvent, function(e) { trackClick('footer::handi::lien', e); });
+	$("#html5-footer .menu .col-right a.toppage").on(trackClickEvent, function(e) { trackClick('footer::toppage::bouton', e); });
+	$("#html5-footer .menu .col-right a.partner").on(trackClickEvent, function(e) { trackClick('footer::orange::bouton', e); });
+	/*! #livetracking */
+	$("#livetracking #content .porteurs a.but").on(trackClickEvent, function(e) { trackClick('profil::porteurs-maillots::bouton', e); });
+	$("#livetracking #content .poi .pastille").on(trackClickEvent, function(e) { trackClick('profil::poi::pastille::bouton', e); });
+	$("#livetracking #content .blocstat_resfresh .rfsh_info").on(trackClickEvent, function(e) { trackClick('profil::refresh::bouton', e); });
+	$("#livetracking #content .ecarts_etape .cont_groupe .bloc_groupe").live(trackClickEvent, function(e) { trackClick('profil::groupe::'+ $(this).attr("num") +'::bouton', e); });
+	$("#livetracking #content .ecarts_etape .prev_etape, #livetracking #content .ecarts_etape .next_etape").live(trackClickEvent, function(e) { trackClick('profil::groupe::fleches::bouton', e); });
+	$("#livetracking #content #BK_COMMENTAIRES .headz .hhdown").on(trackClickEvent, function(e) { trackClick('depeches::reduire::bouton', e); });
+	$("#livetracking #content #BK_COMMENTAIRES .headz .hhdrag").on(trackClickEvent, function(e) { trackClick('depeches::drag::bouton', e); });
+	$("#livetracking #content #BK_COMMENTAIRES .headz .anchors a").live(trackClickEvent, function(e) { trackClick('depeches::heures::bouton', e); });
+	$("#livetracking #content #BK_COMMENTAIRES .cscroll .jspVerticalBar .jspArrow, #livetracking #content #BK_COMMENTAIRES .cscroll .jspVerticalBar .jspTrack").live("click", function(e) { console.log("dscroll");trackClick('depeches::scroll::bar', e); });
+	$("#livetracking #content #BK_CARTO .headz .hhdown").on(trackClickEvent, function(e) { trackClick('carte::reduire::bouton', e); });
+	$("#livetracking #content #BK_CARTO .headz .hhdrag").on(trackClickEvent, function(e) { trackClick('carte::drag::bouton', e); });
+	$("#livetracking #content #BK_GALERY .headz .hhdown").on(trackClickEvent, function(e) { trackClick('live::photos::reduire::bouton', e); });
+	$("#livetracking #content #BK_GALERY .headz .hhdrag").on(trackClickEvent, function(e) { trackClick('live::photos::drag::bouton', e); });
+	$("#livetracking #content #BK_GALERY .media>a").live(trackClickEvent, function(e) { trackClick('live::photos::fleches::bouton', e); });
+	$("#livetracking #content #BK_GALERY .share-buttons>a").live(trackClickEvent, function(e) { trackClick('live::photos::share::'+ $(this).attr("class") +'::bouton', e); });
+	$("#livetracking #content #BK_CLASSEMENTS .headz .hhdown").on(trackClickEvent, function(e) { trackClick('classements::reduire::bouton', e); });
+	$("#livetracking #content #BK_CLASSEMENTS .headz .hhdrag").on(trackClickEvent, function(e) { trackClick('classements::drag::bouton', e); });
+	$("#livetracking #content #BK_CLASSEMENTS .bloc_classement .it").on(trackClickEvent, function(e) { trackClick('classements::itg::maillot', e); });
+	$("#livetracking #content #BK_CLASSEMENTS .bloc_classement .ip").on(trackClickEvent, function(e) { trackClick('classements::ipg::maillot', e); });
+	$("#livetracking #content #BK_CLASSEMENTS .bloc_classement .et").on(trackClickEvent, function(e) { trackClick('classements::etg::maillot', e); });
+	$("#livetracking #content #BK_CLASSEMENTS .bloc_classement .im").on(trackClickEvent, function(e) { trackClick('classements::img::maillot', e); });
+	$("#livetracking #content #BK_CLASSEMENTS .bloc_classement .ij").on(trackClickEvent, function(e) { trackClick('classements::ijg::maillot', e); });
+	$("#livetracking #content #BK_CLASSEMENTS .bloc_classement .ic").on(trackClickEvent, function(e) { trackClick('classements::icg::maillot', e); });
+	$("#livetracking #content #BK_CLASSEMENTS .cscroll .jspVerticalBar .jspArrow, #livetracking #content #BK_CLASSEMENTS .cscroll .jspVerticalBar .jspTrack").live("click", function(e) { console.log("cscroll");trackClick('classements::scroll::bar', e); });
+	$("#livetracking #content .promos #AP1 a").on(trackClickEvent, function(e) { trackClick('autopromo::app-mobile::visuel', e); });
+	$("#livetracking #content .promos #AP2 area").on(trackClickEvent, function(e) { trackClick('social::bouton', e); });
+	$("#livetracking #content .promos #PP1 a").on(trackClickEvent, function(e) { trackClick('autopromo::caravane::visuel', e); });
+	$("#livetracking #content .promos #PP2 a").on(trackClickEvent, function(e) { trackClick('autopromo::socialcorner::visuel', e); });
+	$("#livetracking #content .banner.bottom a").on(trackClickEvent, function(e) { trackClick('autopromo::tracker::banner', e); });
+	//$("#livetracking[lang='FR'] #content .promos #PP2 a").on(trackClickEvent, function(e) { trackClick('autopromo::pmu::visuel', e); });
+	//$("#livetracking[lang!='FR'] #content .promos #PP2 a").on(trackClickEvent, function(e) { trackClick('autopromo::jeu-procyclingmanager::visuel', e); });
+	/*! #page-partenaire */
+	$("#page-partenaires .diff_offi a").on(trackClickEvent, function(e) { trackClick('partenaire::diffuseurs-officiels::logo::'+ $(this).index(), e); });
+	$("#page-partenaires .club a").on(trackClickEvent, function(e) { trackClick('partenaire::club-tour::logo::'+ $(this).index(), e); });
+	$("#page-partenaires .partn_offi a").on(trackClickEvent, function(e) { trackClick('partenaire::partenaires-officiels::logo::'+ $(this).index(), e); });
+	$("#page-partenaires .fourn a").on(trackClickEvent, function(e) { trackClick('partenaire::fournisseurs-officiels::logo::'+ $(this).index(), e); });
+	$("#page-partenaires .supp a").on(trackClickEvent, function(e) { trackClick('partenaire::supporters-officiels::logo::'+ $(this).index(), e); });
+	$("#page-partenaires .tech a").on(trackClickEvent, function(e) { trackClick('partenaire::partenaires-techniques::logo::'+ $(this).index(), e); });
+	$("#page-partenaires .halfbox_left.institu a").on(trackClickEvent, function(e) { trackClick('partenaire::partenaire-media-officiel::logo::'+ $(this).index(), e); });
+	$("#page-partenaires .halfbox_right.institu a").on(trackClickEvent, function(e) { trackClick('partenaire::partenaires-institutionnels::logo::'+ $(this).index(), e); });
+	/*! #top-arrow */
+	$("#top-arrow").live(trackClickEvent, function(e) { trackClick('main::haut-de-page::bouton', e); });
+	/*! #prehome */
+	$("#page.page-prehome header .langs li.fr a").on(trackClickEvent, function(e) { trackClick('pre-home::header::fr::bouton', e); });
+	$("#page.page-prehome header .langs li.us a").on(trackClickEvent, function(e) { trackClick('pre-home::header::us::bouton', e); });
+	$("#page.page-prehome header .langs li.es a").on(trackClickEvent, function(e) { trackClick('pre-home::header::es::bouton', e); });
+	$("#page.page-prehome header .langs li.de a").on(trackClickEvent, function(e) { trackClick('pre-home::header::de::bouton', e); });
+	$("#page.page-prehome header .access-site a").on(trackClickEvent, function(e) { trackClick('pre-home::header::push::acces-au-site', e); });
+	$("#page.page-prehome header .logo-tour a").on(trackClickEvent, function(e) { trackClick('pre-home::header::push::logo', e); });
+	$("#page.page-prehome header .section-actions.stage").on(trackClickEvent, function(e) { trackClick('pre-home::header::push::decouvrir-etape::bouton', e); });
+	$("#page.page-prehome header .section-actions.live").on(trackClickEvent, function(e) { trackClick('pre-home::header::push::direct::bouton', e); });
+	$("#page.page-prehome footer ul li.applications a").on(trackClickEvent, function(e) { trackClick('pre-home::footer:push::applications::bouton', e); });
+	$("#page.page-prehome footer ul li.transport a").on(trackClickEvent, function(e) { trackClick('pre-home::footer::push::caravane::bouton', e); });
+	$("#page.page-prehome footer ul li.videos a").on(trackClickEvent, function(e) { trackClick('pre-home::footer::push::videos::bouton', e); });
+	$("#page.page-prehome footer ul li.follow a").on(trackClickEvent, function(e) { trackClick('pre-home::footer::push::reseaux-sociaux::bouton', e); });
+	$("#page.page-prehome footer .banner a").on(trackClickEvent, function(e) { trackClick('pre-home::footer::tracker::banner', e); });
+});

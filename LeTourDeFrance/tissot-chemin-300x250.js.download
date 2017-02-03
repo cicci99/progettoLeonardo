@@ -1,0 +1,193 @@
+//Obtenir heure
+hour = 0;
+minutes = 0;
+secondes = 0;
+
+var time1;
+var time2;
+var time3;
+var time4;
+var time5;
+var time6;
+var time7;
+
+function currentTime() {
+    var currentTime = new Date;
+    var Secondes = currentTime.getSeconds();
+    if (Secondes < 10) {
+        Secondes = '0' + Secondes;
+    }
+    var Minutes = currentTime.getMinutes();
+    if (Minutes < 10) {
+        Minutes = '0' + Minutes;
+    }
+    var Hour = currentTime.getHours();
+    if (Hour > 12) {
+        Hour -= 12;
+    }
+    var Day = currentTime.getDate();
+    minutes = Minutes * 6 + 360;
+    hour = (Hour) * 5 * 6 + 720 + (Minutes * 6 / 12);
+    secondes = Secondes * 6 + 720;
+
+    // minutes = 10;
+    // hour = 10;
+    // secondes = 10;
+
+    day = Day;
+}
+//afficher heure initial
+var currenttime = function() {
+        $(".day").rotate({ duration: 10, animateTo: 29 });
+        $(".heures").rotate({ duration: 10, animateTo: 306 });
+        $(".minutes").rotate({ duration: 10, animateTo: 48 });
+        $(".secondes").rotate({ duration: 10, animateTo: 230 });
+        $(".day").html(day);
+        if (day < 10) { $(".day").css({ 'font-size': '7px' }); }
+    }
+    //mouvement aiguille vers heure reelle
+var movehour = function() {
+    $(".heures").rotate({ duration: 2000, animateTo: hour, easing: $.easing.easeInOutExpo });
+}
+var movehour2 = function() {
+    var currentTime = new Date;
+
+    var Minutes = currentTime.getMinutes();
+    var Hour = currentTime.getHours();
+
+    // var Minutes = 10;
+    // var Hour = 10;    
+
+    hour2 = (Hour) * 5 * 6 + 720 + (Minutes * 6 / 12);
+    $(".heures").rotate({ duration: 10, animateTo: hour2, easing: $.easing.easeInOutExpo });
+}
+var moveminutes1 = function() {
+    $(".minutes").rotate({ duration: 2000, animateTo: minutes, easing: $.easing.easeInOutExpo });
+}
+var moveminutes2 = function() {
+    var currentTime = new Date;
+    var Secondes = currentTime.getSeconds();
+    var Minutes = currentTime.getMinutes();
+
+    // var Minutes = 10;
+
+    minutes2 = Minutes * 6 + 360 + Secondes * 6 / 60;
+    $(".minutes").rotate({ duration: 10, animateTo: minutes2, easing: $.easing.easeInOutExpo });
+}
+var movesecondes1 = function() {
+    $(".secondes").rotate({ duration: 1000, animateTo: secondes, easing: $.easing.easeInOutExpo });
+}
+var movesecondes2 = function() {
+    $(".secondes").rotate({ duration: 10, animateTo: secondes, easing: $.easing.easeInOutExpo });
+}
+var movesecondes3 = function() {
+    $(".secondes2").rotate({ duration: 3000, animateTo: 720, easing: $.easing.easeInOutExpo });
+}
+
+//animation
+var ecran1 = function() {
+    $('#logo').delay(800).animate({ opacity: 1 }, 800, function() {
+        ecran2();
+    });
+}
+var ecran2 = function() {
+    $('#logo').delay(400).animate({ width: 282, left: 8 }, 800).delay(1000).animate({ opacity: 0 }, 400);
+    $('.logo').delay(2200).animate({ bottom: 3 }, 800);
+    $('.cycliste').delay(2800).animate({ width: 391,  left: -12, top: -41, opacity: 1 }, 1000, function() {
+        ecran3();
+    });
+}
+var ecran3 = function() {
+    $('.logo').delay(400).animate({ bottom: -200 }, 400);
+    $('.cycliste').delay(400).animate({ opacity: 0 }, 400);
+    currentTime();
+    currenttime();
+    $('.montre').delay(0).animate({ opacity: 1 }, 100);
+    $('.montre2')
+        .delay(600)
+        .animate({ opacity: 1 }, 600, function() {
+            ecran4();
+        });
+}
+var ecran4 = function() {
+    $('.cycliste').css({ 'display': 'none' });
+    //hour
+    time1 = setTimeout(function() {
+        movehour();
+        time2 = setInterval(function() {
+            movehour2();
+        }, 2400);
+    }, 1200);
+    //minute
+    time3 = setTimeout(function() {
+        moveminutes1();
+        time4 = setInterval(function() {
+            moveminutes2();
+        }, 2000);
+    }, 400);
+    //secondes
+    time5 = setTimeout(function() {
+        movesecondes1();
+        movesecondes3();
+        time6 = setTimeout(function() {
+            time7 = setInterval(function() {
+                movesecondes2();
+                secondes = secondes + 0.5;
+            }, 83.3333);
+        }, 1000);
+    }, 800);
+    //anim reste ban
+    $('.truc-1').delay(600).animate({ opacity: 1 }, 200).delay(3200).animate({ opacity: 0 }, 200);
+    $('.truc-2').delay(700).animate({ opacity: 1 }, 200).delay(3100).animate({ opacity: 0 }, 200);
+    $('.truc-3').delay(800).animate({ opacity: 1 }, 200).delay(3000).animate({ opacity: 0 }, 200);
+    $('.truc-4').delay(900).animate({ opacity: 1 }, 200).delay(2900).animate({ opacity: 0 }, 200);
+    $('.truc-5').delay(1000).animate({ opacity: 1 }, 200).delay(2900).animate({ opacity: 0 }, 200);
+    $('.truc-6').delay(1100).animate({ opacity: 1 }, 200).delay(2900).animate({ opacity: 0 }, 200);
+    $('.truc-7').delay(1200).animate({ opacity: 1 }, 200).delay(2600).animate({ opacity: 0 }, 200);
+    $('.truc-8').delay(1300).animate({ opacity: 1 }, 200).delay(2500).animate({ opacity: 0 }, 200);
+    $('.truc-9').delay(1400).animate({ opacity: 1 }, 200).delay(2400).animate({ opacity: 0 }, 200);
+    $('.truc-10').delay(1500).animate({ opacity: 1 }, 200).delay(2300).animate({ opacity: 0 }, 200);
+    $('.truc-11').delay(1600).animate({ opacity: 1 }, 200).delay(2200).animate({ opacity: 0 }, 200);
+    $('.truc-12').delay(1700).animate({ opacity: 1 }, 200).delay(2100).animate({ opacity: 0 }, 200);
+    $(".secondes").delay(4000).animate({ opacity: 1 }, 200);
+    $(".day").delay(4000).animate({ opacity: 1 }, 200);
+    $('.bg').delay(4000).animate({ opacity: 0 }, 400, function() {
+        ecran5();
+    });
+}
+var ecran5 = function() {
+    $('.bg').css({ display: 'none' });
+    $('.sepa').delay(800).animate({ width:168 }, 1200);
+    $('.montre').delay(1200).animate({ left: -87 }, 800);
+    $('.montre2').delay(1200).animate({ left: 77-87 }, 800, function() {
+        ecran6();
+    });
+}
+var ecran6 = function() {
+    $('.cta-text')
+        .delay(400)
+        .animate({ opacity: 0 }, 400)
+        .animate({ opacity: 1 }, 400);
+}
+
+
+$(function() {
+
+    ecran1();
+
+    $("#clickArea2").unbind().hover(
+        function() {
+            $('.cta-text')
+                .delay(0)
+                .animate({ opacity: 0 }, 100)
+                .animate({ opacity: 1 }, 300);
+        },
+        function() {
+            setTimeout(function() {
+                $('.cta-text').animate({ opacity: 1 }, 300);
+            }, 300);
+        }
+    );
+
+
+});

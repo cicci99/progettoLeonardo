@@ -1,0 +1,17 @@
+.fan-parks #content #main h1{border:none}
+.fan-parks #content #main h2{border-bottom: 1px dotted #b6b6b6;margin-top:30px}
+.fan-parks #content #main>.share-buttons{margin-top:32px}
+.fan-parks .tabs-content{margin-top:20px}
+.fan-parks .tabs-content figure{margin:20px 0}
+.fan-parks .tabs-content .image {position:relative}
+.fan-parks .tabs-content .image img{display:block}
+.fan-parks .tabs-content .image .credits{position:absolute;bottom:0;right:0;background:rgba(0,0,0,0.5);padding:5px;color:#fff}
+.fan-parks .tabs-content figcaption{border-bottom:1px dotted #B6B6B6;}
+.fan-parks .tabs-content ol{list-style-type: decimal}
+.fan-parks .tabs-content ol li{margin:5px 0;line-height: normal;}
+.fan-parks .tabs-content em {font-style: italic}
+
+.push.fanparks .visuel{height:210px !important;background:url("/le-tour/2014/img/fan-parks/tdf-push-fanparks.jpg") 0 0 no-repeat;}
+
+/* page-nav */
+html[race="TDF"] ul#page-nav li a.active {color:#000;}

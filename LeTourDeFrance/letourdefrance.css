@@ -1,0 +1,124 @@
+.ernesto { 
+	position:absolute; left:200px; top:0px;
+}
+.logo {
+	position: relative;
+	left: 145px;
+	top: 25px
+}
+.tissot {
+	position: relative;
+	left: 14px;
+	top: 102px;
+}
+.p {
+	 position:absolute; 
+	 left:200px;
+	 top:145px;
+	 font-family:impact;
+	 font-size:19px;
+	 background-color:white;
+	 
+}
+.p2 {
+	 position:absolute; 
+	 left:200px;
+	 top:190px;
+}
+body {
+	background-image: url("vettura.jpg")
+	
+}
+.race {
+	font-family:impact;
+	font-size:20px;
+	z-index:3;
+	position:absolute;
+	left:215px;
+	top:433px;
+	
+}
+.cattura {
+	position:absolute;
+	top:441px;
+	left:200px;
+}
+.route {
+	font-family:impact;
+	font-size:20px;
+	z-index:4;
+	position:absolute;
+	top:433px;
+	left:345px;
+	z-index:4;
+}
+#videos {
+	font-family:impact;
+	font-size:20px;
+	z-index:4;
+	position:absolute;
+	top:433px;
+	left:445px;
+}
+#isis {
+	font-family:impact;
+	font-size:20px;
+	z-index:4;
+	position:absolute;
+	top:433px;
+	left:607px;
+}
+#letswok {
+font-family:impact;
+	font-size:20px;
+	z-index:4;
+	position:absolute;
+	top:433px;top:433px;
+	left:700px;
+}
+#ergo {
+	font-family:impact;
+	font-size:20px;
+	z-index:4;
+	position:absolute;
+	top:433px;
+	left:920px;
+}
+#figo {
+	position:absolute;
+	top:441px;
+	left:1010px;
+	z-index:4;
+}
+#adolf {
+	position:absolute;
+	top:455px;
+	left:1010px;
+	z-index:4;
+	width:100px;
+}
+#corba {
+	position:absolute;
+	top:491px;
+	left:200px;
+}
+#allah {
+	position:absolute;
+	top:500px;
+	left:950px;
+}
+#nus {
+	position:absolute;
+	top:670px;
+	left:240px;
+	z-index:4;
+}
+#capucino {
+	font-family:impact;
+	font-size:20px;
+	z-index:4;
+	position:absolute;
+	top:650px;
+	left:265px;
+	color:#2E2E2E;
+}

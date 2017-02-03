@@ -1,0 +1,30 @@
+
+if ("undefined" == typeof Ads) Ads = {};
+if ("undefined" == typeof sas_pageid || sas_pageid == "") {sas_pageid="2367/17130";}
+if ("undefined" == typeof sas_target) {sas_target="";}
+if (document.location.hash != "") {sas_target = document.location.hash.replace("#","")+";"+sas_target;}
+sas_scriptDomain = "http://ww84.smartadserver.com";
+sas_tmstp = Math.round(Math.random()*10000000000);
+
+document.write('<scr'+'ipt async="true" src="http://ww84.smartadserver.com/call2/pubjallajax/' + sas_pageid + '/' + sas_formatids + '/' + sas_tmstp + '/' + escape(sas_target) + '?"></scr'+'ipt>');
+document.write('<scr'+'ipt type="text/javascript" src="http://cdn1.smartadserver.com/diff/js/smartadserver.js"></scr'+'ipt>');
+
+Ads = {
+	display: function(sas_pageid, sas_formatid, sas_target) {
+		if ("undefined" !== typeof  SmartAdServerAjaxOneCall)	{SmartAdServerAjaxOneCall(sas_pageid, sas_formatid, sas_target);}	
+		if (undefined !== Ads.list) {Ads.list[sas_formatid] = sas_formatid;}
+	},
+	list: [],
+	refresh: function(sas_pageid, sas_formats, sas_target) {
+	if ("undefined" !== typeof SmartAdServerAjax) {
+	
+			if (sas_formats == "all") {for (format in Ads.list) {
+					 SmartAdServerAjax(sas_pageid, format, sas_target);
+			}} else if (("object" == typeof sas_formats) && (sas_formats instanceof Array)) {
+				for (format in sas_formats) {SmartAdServerAjax(sas_pageid, sas_formats[format], sas_target);}
+			} else {
+				SmartAdServerAjax(sas_pageid, sas_formats, sas_target);
+			}
+		}
+	}
+}

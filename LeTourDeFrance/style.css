@@ -1,0 +1,317 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0px;
+    padding: 0px;
+}
+
+
+#background {
+    opacity: 0;
+}
+
+button,
+.buttons {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    position: absolute;
+    width: 300px;
+    height: 250px;
+    left: 0;
+    top: 0;
+    padding: 0px;
+    z-index: 999;
+}
+
+
+
+/* style of banner */
+
+img {
+    display: block;
+    position: absolute;
+}
+
+a img {
+    border: none;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+}
+#ad {
+	width: 300px;
+	height: 250px;
+}
+
+#conteneur {
+    overflow: hidden;
+    position: absolute;
+    width: 298px;
+    height: 248px;
+    border: 1px solid #000;
+    background-image: url('bg.jpg');
+}
+
+.montre {
+    width: 298px;
+    height: 248px;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+#cta {
+    display: block;
+    position: absolute;
+    width: 155px;
+    height: 18px;
+    bottom: 18px;
+    right: 0px;
+    /* transform: translateX(-50%); */
+    /* -webkit-transform: translateX(-50%); */
+    background: #ec3025;
+    opacity: 1;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+.cta-text {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.logo-fin-1 {
+    width: auto;
+    height: 18px;
+    top: 16px;
+    right: 0;
+    opacity: 1;
+    z-index: 3;
+}
+
+.logo-fin-2 {
+    width: auto;
+    height: 17px;
+    top: 36px;
+    right: 0;
+    opacity: 1;
+    z-index: 3;
+}
+
+.boule {
+    width: 200px;
+    height: auto;
+    top: 40px;
+    right: -55px;
+    opacity: 1;
+}
+
+.montre2 {
+    position: absolute;
+    display: block;
+    width: 142px;
+    height: 142px;
+    top: 54px;
+    left: 77px;
+    opacity: 0;
+}
+
+.truc-1 {
+    width: 6.5%;
+    height: auto;
+    top: 21.18%;
+    left: 60.81%;
+    opacity: 0;
+}
+
+.truc-2 {
+    width: 5.9%;
+    height: auto;
+    top: 32.2%;
+    left: 72.75%;
+    opacity: 0;
+}
+
+.truc-3 {
+    width: 5.23%;
+    height: auto;
+    top: 45.2%;
+    left: 75.53%;
+    opacity: 0;
+}
+
+.truc-4 {
+    width: 3.56%;
+    height: auto;
+    top: 62.73%;
+    left: 74.70%;
+    opacity: 0;
+}
+
+.truc-5 {
+    width: 6.63%;
+    height: auto;
+    top: 68.7%;
+    left: 59.75%;
+    opacity: 0;
+}
+
+.truc-6 {
+    width: 2.5%;
+    height: auto;
+    top: 75.8%;
+    left: 48.4%;
+    opacity: 0;
+}
+
+.truc-7 {
+    width: 6.03%;
+    height: auto;
+    top: 69.09%;
+    left: 32.67%;
+    opacity: 0;
+}
+
+.truc-8 {
+    width: 8.4%;
+    height: auto;
+    top: 59.84%;
+    left: 21.82%;
+    opacity: 0;
+}
+
+.truc-9 {
+    width: 5.3%;
+    height: auto;
+    top: 44.71%;
+    left: 18.93%;
+    opacity: 0;
+}
+
+.truc-10 {
+    width: 6.37%;
+    height: auto;
+    top: 32.07%;
+    left: 21.5%;
+    opacity: 0;
+}
+
+.truc-11 {
+    width: 6.47%;
+    height: auto;
+    top: 20.93%;
+    left: 32.73%;
+    opacity: 0;
+}
+
+.truc-12 {
+    width: 8.2%;
+    height: auto;
+    top: 18%;
+    left: 45.9%;
+    opacity: 0;
+}
+
+.day {
+    position: absolute;
+    display: block;
+    width: 4.8%;
+    height: 7%;
+    top: 58.2%;
+    left: 68.7%;
+    font-family: arial;
+    font-size: 6px;
+    color: #FFF;
+    line-height: 11px;
+    text-align: center;
+    font-weight: 700;
+    opacity: 0;
+}
+
+.heures {
+    width: 7.66%;
+    height: auto;
+    top: 20.75%;
+    left: 45.92%;
+}
+
+.minutes {
+    width: 6.16%;
+    height: auto;
+    top: 4%;
+    left: 46.6%;
+}
+
+.secondes {
+    width: 2.6%;
+    height: auto;
+    top: 54.9%;
+    left: 48.5%;
+    opacity: 0;
+}
+
+.secondes2 {
+    width: 6.16%;
+    height: auto;
+    top: 13%;
+    left: 46.7%;
+}
+
+.bg {
+    width: 298px;
+    height: 248px;
+    top: 0;
+    left: 0;
+}
+
+#logo {
+    display: block;
+    position: absolute;
+    width: 88px;
+    height: 39px;
+    top: 104px;
+    left: 105px;
+    overflow: hidden;
+    opacity: 0;
+}
+
+.logo-deb-2 {
+    width: 282px;
+    height: 39px;
+    top: 0;
+    left: 0;
+    opacity: 1;
+}
+
+.logo {
+    width: 173px;
+    height: 106px;
+    bottom: -200px;
+    left: 62px;
+    background: transparent;
+}
+
+.cycliste {
+    width: 313px;
+    height: auto;
+    top: 0px;
+    left: 0px;
+    opacity: 0;
+}
+.sepa {
+    display: block;
+    position: absolute;
+    width: 0px;
+    height: 250px;
+    top: 0px;
+    right: -2px;
+    border-left: 2px solid #fff;
+    background: #e0e0df;
+    overflow: hidden;
+    z-index: 1000;
+}
